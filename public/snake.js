@@ -1,12 +1,12 @@
 export class Snake
 {
-    constructor() {
+    constructor(x, y) {
         this.segments = [
-            {x: 20, y: 20}
+            {x: x, y: y},
+            {x: x+1, y: y},
         ]
-        this.currentDirection = undefined
+        this.currentDirection = null
         this.moving = false
-        this.hitFood = false
     }
 
     addSegment() {

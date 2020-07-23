@@ -1,41 +1,79 @@
-import {Snake} from './snake.js'
-
-const board = document.querySelector('.board')
-
-function draw(snake) { // maps coordinates of each segment of snake to grid in DOM
-    snake.segments.forEach(segment => {
-        let newSegment = document.createElement('div')
-        newSegment.classList.add('snake')
-        board.appendChild(newSegment)
-        newSegment.style.gridRowStart = segment.x
-        newSegment.style.gridColumnStart = segment.y
-    })
-}
-
-function clear() { // removes snake from DOM
-    if (board.children.length === 0) return 
-    for (let segment of board.children) {
-        segment.remove()
-        clear()
-    }
-}
-
-let s = new Snake()
-
-window.addEventListener('keyup', (e) => {
-    let newDirection = s.getNewDirection(e)
-
-    if (newDirection == 'invalid') return
-
-    if (s.moving != false) { // clear movement
-        clearInterval(s.moving)
+export class Game
+{
+    constructor(snake, food) {
+        this.gameOver = false
+        this.board = document.querySelector('.board')
+        this.snake = snake
+        this.food = food
     }
 
-    s.moving = setInterval(() => { // restart movement
-        s.updateSegments(newDirection)
-        clear()
-        draw(s)
-    }, 150);
-})
+    drawSnake() { // prints snake to DOM
+        for (let x = 0; x < this.snake.segments.length - 1; x++) {
+            let newSegment = document.createElement('div')
+            newSegment.classList.add('snake')
+            this.board.appendChild(newSegment)
+            newSegment.style.gridRowStart = this.snake.segments[x].x
+            newSegment.style.gridColumnStart = this.snake.segments[x].y
+        }
+        
+    }
 
+    clearSnake() { // removes snake from DOM
+        let snakeElements = document.querySelectorAll('.snake')
+        if (snakeElements.length == 0) return 
+        for (let piece of snakeElements) {
+            piece.remove()
+            this.clearSnake()
+        }
+    }
 
+    clearFood() { // removes food from DOM
+        let foodElement = document.querySelector('.food')
+        foodElement.remove()
+    }
+
+    drawFood() { // prints food to DOM
+        let newFood = document.createElement('div')
+        newFood.classList.add('food')
+        this.board.appendChild(newFood)
+        newFood.style.gridRowStart = this.food.position.x
+        newFood.style.gridColumnStart = this.food.position.y
+    }
+
+    getCollisitonType() {
+        if (this.snake.segments[0].x == this.food.position.x && this.snake.segments[0].y == this.food.position.y) {
+            // food hit 
+            return 'food'
+        } 
+
+        for (let x = 1; x < this.snake.segments.length; x++) {
+            if (this.snake.segments[0].x == this.snake.segments[x].x && this.snake.segments[0].y == this.snake.segments[x].y) {
+                // snake hit 
+                return 'self'
+            }
+        }
+
+        
+
+    }
+
+    handleCollision() {
+        let collision = this.getCollisitonType()
+
+        switch (collision) {
+            case 'food': 
+                this.clearFood()
+                this.food.updatePosition()
+                this.drawFood()
+                this.snake.addSegment()
+                break 
+
+            case 'self': 
+                this.gameOver = true
+                break 
+
+            case ' boundary':
+                return
+        }
+    }
+}
