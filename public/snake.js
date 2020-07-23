@@ -2,34 +2,39 @@ export class Snake
 {
     constructor() {
         this.segments = [
-            {x: 20, y: 20},
-            {x: 21, y: 20},
-            {x: 23, y: 20},
-            {x: 24, y: 20},
-            {x: 25, y: 20},
-            {x: 26, y: 20}
+            {x: 20, y: 20}
         ]
         this.currentDirection = undefined
         this.moving = false
+        this.hitFood = false
     }
 
-    drawSnake(board) { // maps coordinates of each segment to grid in DOM
-        this.segments.forEach(segment => {
-            let newSegment = document.createElement('div')
-            newSegment.classList.add('snake')
-            board.appendChild(newSegment)
-            newSegment.style.gridRowStart = segment.x
-            newSegment.style.gridColumnStart = segment.y
-        })
-    }
+    addSegment() {
+        let x 
+        let y
+        let lastSegment = this.segments[this.segments.length - 1]
+        
+        switch (this.currentDirection) {
+            case 'left':
+                x = lastSegment.x
+                y = lastSegment.y + 1 
 
-    clearSnake() { // removes snake from DOM
-        let snake = board.children 
-        if (snake.length === 0) return 
-        for (let segment of snake) {
-            segment.remove()
-            this.clearSnake()
+            case 'up':
+                x = lastSegment.x + 1
+                y = lastSegment.y 
+                
+            case 'right':
+                x = lastSegment.x 
+                y = lastSegment.y - 1
+
+            case 'down':
+                x = lastSegment.x - 1
+                y = lastSegment.y
         }
+
+        this.segments.push({
+            x: x, y: y
+        })
     }
 
     getNewDirection(event) {
@@ -98,28 +103,4 @@ export class Snake
             x: newHeadX, y: newHeadY
         })
     }
-
-    moveSnake(board) {
-        s.clearSnake()
-        s.drawSnake(board)
-    } 
 }
-
-
-let s = new Snake()
-
-
-window.addEventListener('keyup', (e) => {
-    let newDirection = s.getNewDirection(e)
-
-    if (newDirection == 'invalid') return
-
-    if (s.moving != false) { // clear movement
-        clearInterval(s.moving)
-    }
-
-    s.moving = setInterval(() => { // restart movement
-        s.updateSegments(newDirection)
-        s.moveSnake()
-    }, 150);
-})
