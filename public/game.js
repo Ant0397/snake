@@ -14,8 +14,7 @@ export class Game
             this.board.appendChild(newSegment)
             newSegment.style.gridRowStart = this.snake.segments[x].x
             newSegment.style.gridColumnStart = this.snake.segments[x].y
-        }
-        
+        }  
     }
 
     clearSnake() { // removes snake from DOM
