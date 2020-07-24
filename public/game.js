@@ -1,17 +1,25 @@
 export class Game
 {
-    constructor(snake, food) {
+    constructor(board, snake, food) {
         this.gameOver = false
-        this.board = document.querySelector('.board')
+        this.board = board
         this.snake = snake
         this.food = food
+    }
+
+    drawBoard() { // prints board to DOM
+        let boardElement = document.createElement('div')
+        boardElement.classList.add('board')
+        boardElement.style.gridTemplateRows = `repeat(${this.board.width}, 1fr)`
+        boardElement.style.gridTemplateColumns = `repeat(${this.board.height}, 1fr)`
+        document.querySelector('.container').appendChild(boardElement)
     }
 
     drawSnake() { // prints snake to DOM
         for (let x = 0; x < this.snake.segments.length - 1; x++) {
             let newSegment = document.createElement('div')
             newSegment.classList.add('snake')
-            this.board.appendChild(newSegment)
+            document.querySelector('.board').appendChild(newSegment)
             newSegment.style.gridRowStart = this.snake.segments[x].x
             newSegment.style.gridColumnStart = this.snake.segments[x].y
         }  
@@ -34,7 +42,7 @@ export class Game
     drawFood() { // prints food to DOM
         let newFood = document.createElement('div')
         newFood.classList.add('food')
-        this.board.appendChild(newFood)
+        document.querySelector('.board').appendChild(newFood)
         newFood.style.gridRowStart = this.food.position.x
         newFood.style.gridColumnStart = this.food.position.y
     }
@@ -61,7 +69,7 @@ export class Game
 
         if (collision == 'food') {
             this.clearFood()
-            this.food.updatePosition()
+            this.food.updatePosition(this.board.width, this.board.height)
             this.drawFood()
             this.snake.addSegment()
         } else if (collision == 'self' || collision == 'boundary') {
