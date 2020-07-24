@@ -1,15 +1,14 @@
 export class Food
 {
-    constructor() {
+    constructor(gridX, gridY) {
         this.position = {
-            x: Math.floor(Math.random() * 40) + 1,
-            y: Math.floor(Math.random() * 40) + 1
+            x: Math.floor(Math.random() * gridX) + 1,
+            y: Math.floor(Math.random() * gridY) + 1
         }
-        console.log(this.position)
     }
 
-    updatePosition() {
-        this.position.x = Math.floor(Math.random() * 40) + 1,
-        this.position.y = Math.floor(Math.random() * 40) + 1
+    updatePosition(gridX, gridY) {
+        this.position.x = Math.floor(Math.random() * gridX) + 1,
+        this.position.y = Math.floor(Math.random() * gridY) + 1
     }
 }

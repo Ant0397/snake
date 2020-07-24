@@ -1,14 +1,20 @@
 import {Snake} from './snake.js'
 import {Food} from './food.js'
 import {Game} from './game.js'
+import { Board } from './board.js'
 
 initialise()
 
 function initialise() {
-    let snake = new Snake(0, 0)
-    let food = new Food()
-    let game = new Game(snake, food)
+    let gridX = 25
+    let gridY = 25
 
+    let board = new Board(gridX, gridY)
+    let snake = new Snake(gridX / 2, gridY / 2)
+    let food = new Food(gridX, gridY)
+    let game = new Game(board, snake, food)
+
+    game.drawBoard()
     game.drawFood()
     game.drawSnake()
 
