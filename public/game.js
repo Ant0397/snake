@@ -53,27 +53,22 @@ export class Game
             }
         }
 
-        
+                   
 
     }
 
     handleCollision() {
         let collision = this.getCollisitonType()
 
-        switch (collision) {
-            case 'food': 
-                this.clearFood()
-                this.food.updatePosition()
-                this.drawFood()
-                this.snake.addSegment()
-                break 
-
-            case 'self': 
-                this.gameOver = true
-                break 
-
-            case ' boundary':
-                return
+        if (collision == 'food') {
+            this.clearFood()
+            this.food.updatePosition()
+            this.drawFood()
+            this.snake.addSegment()
+        } else if (collision == 'self' || collision == 'boundary') {
+            this.gameOver = true
+        } else {
+            return
         }
     }
 }
