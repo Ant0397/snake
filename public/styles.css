@@ -16,6 +16,7 @@
     width: 900px;
     height: 900px;
     margin-top: 5vh;
+    position: relative;
 }
 
 .snake {
@@ -26,4 +27,38 @@
 .food {
     background-color: red;
     border: 1px solid white;
+}
+
+.game-over {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: rgba(88, 88, 88, .75);
+}
+
+h1 {
+    font-size: 6rem;
+    color: white;
+    margin-bottom: 5vh;
+}
+
+button {
+    padding: 10px;
+    font-size: 2rem;
+    border-radius: 20px;
+    color: white;
+    background-color: black;
+    border: 2px solid white;
+    outline: none;
+    cursor: pointer;
+    transition-duration: 400ms;
+}
+
+button:hover {
+    background-color: white;
+    color: black;
 }

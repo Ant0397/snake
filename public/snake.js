@@ -56,7 +56,7 @@ export class Snake
         }
     }
     
-    updateSegments(newDirection) { // removes last segment and places it one square in front of the head in the desired direction
+    updatePosition(newDirection) { // removes last segment and places it one square in front of the head in the desired direction
         let newHeadX
         let newHeadY
 

@@ -60,7 +60,12 @@ export class Game
             }
         }
 
-                   
+        for (let x = 0; x < this.board.boundaries.length; x++) {
+            if (this.snake.segments[0].x == this.board.boundaries[x].x && this.snake.segments[0].y == this.board.boundaries[x].y) {
+                // board boundary hit
+                return 'boundary'
+            }
+        }   
 
     }
 
@@ -77,5 +82,25 @@ export class Game
         } else {
             return
         }
+    }
+
+    end() {
+        clearInterval(this.snake.moving)
+
+        let gameOverScreen = document.createElement('div')
+        gameOverScreen.classList.add('game-over')
+        document.querySelector('.board').appendChild(gameOverScreen)
+
+        let textElement = document.createElement('h1')
+        textElement.innerText = 'Game Over'
+        gameOverScreen.appendChild(textElement)
+
+        let restartBtn = document.createElement('button')
+        restartBtn.innerText = 'Play Again'
+        restartBtn.addEventListener('click', () => {
+            location.reload()
+        })
+        gameOverScreen.appendChild(restartBtn)
+
     }
 }
