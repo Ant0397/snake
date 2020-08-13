@@ -3,6 +3,7 @@ export class Board
     constructor(width, height) {
         this.width = width 
         this.height = height
+        this.scoreElement = document.querySelector('.score')
         this.boundaries = []
         this.setBoundaries()
         console.log(this.boundaries)

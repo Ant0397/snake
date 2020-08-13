@@ -3,33 +3,57 @@ export class Snake
     constructor(x, y) {
         this.segments = [
             {x: x, y: y},
-            {x: x+1, y: y},
         ]
         this.currentDirection = null
         this.moving = false
     }
 
     addSegment() {
+        let lastSegment = this.segments[this.segments.length - 1]
+        let secondLastSegment = this.segments[this.segments.length - 2]
+        
         let x 
         let y
-        let lastSegment = this.segments[this.segments.length - 1]
-        
-        switch (this.currentDirection) {
-            case 'left':
-                x = lastSegment.x
-                y = lastSegment.y + 1 
+        if (secondLastSegment == undefined) { // use currentDirection to determine where to add segment 
+                                              // if length of snake is only 1 
+            switch (this.currentDirection) {
+                case 'left':
+                    x = lastSegment.x 
+                    y = lastSegment.y - 1
+    
+                case 'up':
+                    x = lastSegment.x + 1
+                    y = lastSegment.y 
+                    
+                case 'right':
+                    x = lastSegment.x 
+                    y = lastSegment.y + 1
+    
+                case 'down':
+                    x = lastSegment.x - 1
+                    y = lastSegment.y
+            }
+        } else { // use direction of tail to determine where to add segment if snake is longer
+            let tailXDirection = secondLastSegment.x - lastSegment.x
+            let tailYDirection = secondLastSegment.y - lastSegment.y
 
-            case 'up':
-                x = lastSegment.x + 1
-                y = lastSegment.y 
-                
-            case 'right':
-                x = lastSegment.x 
-                y = lastSegment.y - 1
-
-            case 'down':
-                x = lastSegment.x - 1
-                y = lastSegment.y
+            if (tailXDirection == 0) { // tail is moving horizontally
+                if (tailYDirection == -1) { // tail is heading left
+                    x = lastSegment.x
+                    y = lastSegment.y + 1 
+                } else if (tailYDirection == 1) { // tail is heading right 
+                    x = lastSegment.x 
+                    y = lastSegment.y - 1
+                }
+            } else if(tailYDirection == 0) { // tail is moving vertically
+                if (tailXDirection == -1) { // tail is heading up
+                    x = lastSegment.x + 1
+                    y = lastSegment.y 
+                } else if (tailXDirection == 1) { // tail is heading down
+                    x = lastSegment.x - 1
+                    y = lastSegment.y 
+                }
+            }   
         }
 
         this.segments.push({

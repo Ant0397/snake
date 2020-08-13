@@ -6,39 +6,41 @@ import { Board } from './board.js'
 main()
 
 function main() {
-    let gridX = 20
-    let gridY = 20
+    let gridX = 10
+    let gridY = 10
 
     let board = new Board(gridX, gridY)
-    let snake = new Snake(gridX / 2, gridY / 2)
+    let snake = new Snake(1, 10)
     let food = new Food(gridX, gridY)
     let game = new Game(board, snake, food)
 
     game.drawBoard()
     game.drawFood()
     game.drawSnake()
+    console.log(snake.segments)
 
     window.addEventListener('keyup', (e) => {
-        if (! game.gameOver) {
+        if (game.gameOver) return
 
-            let newDirection = snake.getNewDirection(e)
+        let newDirection = snake.getNewDirection(e)
     
-            if (newDirection == 'invalid') return
+        if (newDirection == 'invalid') return
         
-            if (snake.moving != false) { // clear movement
-                clearInterval(snake.moving)
-            }
+        if (snake.moving != false) { // clear movement
+            clearInterval(snake.moving)
+        }
 
-            snake.moving = setInterval(() => { // restart movement
-                if (! game.gameOver) {
+        snake.moving = setInterval(() => { // restart movement
+                snake.updatePosition(newDirection)
+                if (game.handleCollision() != false) {
                     snake.updatePosition(newDirection)
+                }
+                if (game.gameOver) {
+                    game.end()
+                } else {
                     game.clearSnake()
                     game.drawSnake()
-                    game.handleCollision()
-                } else {
-                    game.end()
                 }     
-            }, 150)
-        } 
+        }, 150)
     })
 }

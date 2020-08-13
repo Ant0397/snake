@@ -5,6 +5,7 @@ export class Game
         this.board = board
         this.snake = snake
         this.food = food
+        this.score = 0
     }
 
     drawBoard() { // prints board to DOM
@@ -13,10 +14,12 @@ export class Game
         boardElement.style.gridTemplateRows = `repeat(${this.board.width}, 1fr)`
         boardElement.style.gridTemplateColumns = `repeat(${this.board.height}, 1fr)`
         document.querySelector('.container').appendChild(boardElement)
+
+        document.querySelector('.score').innerText = this.score
     }
 
     drawSnake() { // prints snake to DOM
-        for (let x = 0; x < this.snake.segments.length - 1; x++) {
+        for (let x = 0; x < this.snake.segments.length; x++) {
             let newSegment = document.createElement('div')
             newSegment.classList.add('snake')
             document.querySelector('.board').appendChild(newSegment)
@@ -74,13 +77,15 @@ export class Game
 
         if (collision == 'food') {
             this.clearFood()
-            this.food.updatePosition(this.board.width, this.board.height)
+            this.food.updatePosition(this.board.width, this.board.height, this.snake.segments)
             this.drawFood()
             this.snake.addSegment()
+            this.score++
+            this.board.scoreElement.innerText = this.score
         } else if (collision == 'self' || collision == 'boundary') {
             this.gameOver = true
         } else {
-            return
+            return false
         }
     }
 
@@ -101,6 +106,5 @@ export class Game
             location.reload()
         })
         gameOverScreen.appendChild(restartBtn)
-
     }
 }

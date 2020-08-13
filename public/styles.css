@@ -6,6 +6,7 @@
 
 .container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
@@ -15,7 +16,6 @@
     background-color: black;
     width: 900px;
     height: 900px;
-    margin-top: 5vh;
     position: relative;
 }
 
@@ -61,4 +61,15 @@ button {
 button:hover {
     background-color: white;
     color: black;
+}
+
+.score {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 4rem;
+    margin-top: 3vh;
+    background-color: rgb(41, 41, 41);
+    color: white;
+    width: 900px;
 }
