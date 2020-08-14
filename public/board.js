@@ -6,7 +6,6 @@ export class Board
         this.scoreElement = document.querySelector('.score')
         this.boundaries = []
         this.setBoundaries()
-        console.log(this.boundaries)
     }
 
     setBoundaries() {

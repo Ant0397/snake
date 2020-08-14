@@ -5,7 +5,7 @@ const app = express()
 
 app.use(express.static('public'))
 
-http.createServer(app).listen(3000, () => {
+http.createServer(app).listen(4000, () => {
     console.log('Server Running')
 })
 

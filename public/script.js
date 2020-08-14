@@ -32,9 +32,7 @@ function main() {
 
         snake.moving = setInterval(() => { // restart movement
                 snake.updatePosition(newDirection)
-                if (game.handleCollision() != false) {
-                    snake.updatePosition(newDirection)
-                }
+                game.handleCollision()
                 if (game.gameOver) {
                     game.end()
                 } else {
