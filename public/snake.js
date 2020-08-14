@@ -11,29 +11,13 @@ export class Snake
     addSegment() {
         let lastSegment = this.segments[this.segments.length - 1]
         let secondLastSegment = this.segments[this.segments.length - 2]
-        
+
         let x 
         let y
-        if (secondLastSegment == undefined) { // use currentDirection to determine where to add segment 
-                                              // if length of snake is only 1 
-            switch (this.currentDirection) {
-                case 'left':
-                    x = lastSegment.x 
-                    y = lastSegment.y - 1
-    
-                case 'up':
-                    x = lastSegment.x + 1
-                    y = lastSegment.y 
-                    
-                case 'right':
-                    x = lastSegment.x 
-                    y = lastSegment.y + 1
-    
-                case 'down':
-                    x = lastSegment.x - 1
-                    y = lastSegment.y
-            }
-        } else { // use direction of tail to determine where to add segment if snake is longer
+        if (secondLastSegment == undefined) { 
+            x = lastSegment.x 
+            y = lastSegment.y
+        } else { // use direction of tail to determine where to add segment if snake is longer than 1
             let tailXDirection = secondLastSegment.x - lastSegment.x
             let tailYDirection = secondLastSegment.y - lastSegment.y
 
@@ -88,7 +72,7 @@ export class Snake
             if (this.currentDirection != 'right') {
                 this.currentDirection = 'left'
                 newHeadX = this.segments[0].x
-                newHeadY = this.segments[0].y -1 // updating y coordinate
+                newHeadY = this.segments[0].y - 1 // updating y coordinate
             } else { // prevents snake going backwards
                 newHeadX = this.segments[0].x
                 newHeadY = this.segments[0].y + 1 // updating y coordinate

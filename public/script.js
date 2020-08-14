@@ -17,7 +17,6 @@ function main() {
     game.drawBoard()
     game.drawFood()
     game.drawSnake()
-    console.log(snake.segments)
 
     window.addEventListener('keyup', (e) => {
         if (game.gameOver) return
