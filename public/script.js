@@ -1,22 +1,54 @@
 import {Snake} from './snake.js'
 import {Food} from './food.js'
 import {Game} from './game.js'
-import { Board } from './board.js'
+import {Board} from './board.js'
 
-main()
+const params = new URLSearchParams(location.search)
+let gridX 
+let gridY 
+let speed
 
-function main() {
-    let gridX = 10
-    let gridY = 10
+init()
+play()
 
+
+function init() {
+    switch (params.get('difficulty')) {
+        case 'easy': 
+            gridX = 20
+            gridY = 20
+            speed = 150
+            break
+
+        case 'medium':
+            gridX = 10
+            gridY = 10
+            speed = 150
+            break
+
+        case 'hard':
+            gridX = 8
+            gridY = 8
+            speed = 100
+            break
+    }
+
+    let primaryColour = params.get('primary')
+    document.body.style.setProperty('--primary-colour', primaryColour)
+
+    let foodColour = params.get('food')
+    document.body.style.setProperty('--food-colour', foodColour)
+}
+
+function play() {
     let board = new Board(gridX, gridY)
-    let snake = new Snake(1, 10)
+    let snake = new Snake(gridX / 2, gridY / 2)
     let food = new Food(gridX, gridY)
     let game = new Game(board, snake, food)
 
     game.drawBoard()
-    game.drawFood()
     game.drawSnake()
+    game.drawFood()
 
     window.addEventListener('keyup', (e) => {
         if (game.gameOver) return
@@ -38,6 +70,6 @@ function main() {
                     game.clearSnake()
                     game.drawSnake()
                 }     
-        }, 150)
+        }, speed)
     })
 }

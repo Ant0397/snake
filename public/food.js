@@ -22,5 +22,4 @@ export class Food
             }
         } while (overlap == true)
     }
-
 }

@@ -1,12 +1,71 @@
 :root {
     --width: 90vh;
-    --height: 90vh
+    --height: 90vh;
+    --primary-colour: rgb(0, 128, 0);
+    --food-colour: red;
+    --select-background: rgb(182, 204, 174);
+    --select-background-hover: rgb(209, 223, 203);
+    --submit-text-hover: rgb(219, 241, 210);
+    --submit-background-hover: rgb(22, 149, 22);
 }
 
 *, *::before, *::after {
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+#title {
+    color: var(--primary-colour);
+    font-size: 15vh;
+    margin-top: 10vh;
+    margin-bottom: 2vh;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+select {
+    width: 45vh;
+    height: 5vh;
+    margin-bottom: 4vh;
+    font-size: 3vh;
+    text-align-last: center;
+    outline: none;
+    appearance: none;
+    border-radius: 10vh;
+    background-color: var(--select-background);
+    color: var(--primary-colour);
+    border: 3px solid var(--primary-colour);
+    font-weight: bold;
+}
+
+select:hover {
+    background-color: var(--select-background-hover);
+}
+
+input[type=submit] {
+    width: 45vh;
+    height: 5vh;
+    margin-bottom: 4vh;
+    font-size: 3vh;
+    outline: none;
+    border-radius: 10vh;
+    background-color: var(--primary-colour);
+    color: var(--select-background);
+    border: 3px solid var(--select-background);
+    cursor: pointer;
+    font-weight: bold;
+}
+
+input[type=submit]:hover {
+    background-color: var(--submit-background-hover);
+    color: var(--submit-text-hover);
+    border: 3px solid var(--submit-text-hover);
+    transition-duration: 400ms;
 }
 
 .container {
@@ -25,12 +84,12 @@
 }
 
 .snake {
-    background-color: green;
+    background-color: var(--primary-colour);
     border: 1px solid white;
 }
 
 .food {
-    background-color: red;
+    background-color: var(--food-colour);
     border: 1px solid white;
 }
 
@@ -53,6 +112,7 @@ h1 {
 
 button {
     padding: 10px;
+    margin: 1vh;
     font-size: 2rem;
     border-radius: 20px;
     color: white;

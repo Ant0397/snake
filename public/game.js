@@ -106,5 +106,12 @@ export class Game
             location.reload()
         })
         gameOverScreen.appendChild(restartBtn)
+
+        let menuBtn = document.createElement('button')
+        menuBtn.innerText = 'Main Menu'
+        menuBtn.addEventListener('click', () => {
+            window.location.href = '/'
+        })
+        gameOverScreen.appendChild(menuBtn)
     }
 }

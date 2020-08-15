@@ -10,5 +10,9 @@ http.createServer(app).listen(4000, () => {
 })
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'))
+    res.sendFile(path.join(__dirname, 'public', 'home.html'))
+})
+
+app.get('/play', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'game.html'))
 })

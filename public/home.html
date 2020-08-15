@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="home.js"></script>
+    <title>Snake</title>
+</head>
+<body style="background-color: rgb(41, 41, 41);">
+    <div class="container">
+        <h1 id="title">Snake</h1>
+        <form action="/play">
+            <select data-prepend="Difficulty" name="difficulty">
+                <option value="default" selected disabled>Select Difficulty</option>
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+            </select>
+            <select data-prepend="Snake Colour" name="primary" id="primary-colour">
+                <option value="default" selected disabled>Select Snake Colour</option>
+                <option value="rgb(207, 31, 31)">Red</option>
+                <option value="rgb(255, 115, 0)">Orange</option>
+                <option value="rgb(0, 140, 255)">Blue</option>
+                <option value="rgb(0, 128, 0)">Green</option>
+            </select>
+            <select data-prepend="Food Colour" name="food">
+                <option value="default" selected disabled>Select Food Colour</option>
+                <option value="rgb(207, 31, 31)">Red</option>
+                <option value="rgb(255, 115, 0)">Orange</option>
+                <option value="rgb(0, 140, 255)">Blue</option>
+                <option value="rgb(0, 128, 0)">Green</option>
+            </select>
+            <input type="submit" id="submit" value="Play">
+        </form>
+    </div>
+</body>
+</html>
